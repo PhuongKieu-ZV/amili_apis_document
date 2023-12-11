@@ -1,0 +1,41 @@
+{
+	"info": {
+		"_postman_id": "4ce5c57d-2a31-4695-b4c2-82bc534d1fe2",
+		"name": "production Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "batch_lsg3_83",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"batchId\":\"batch_lsg3_83\",\r\n    \"projectType\":\"ALL\",\r\n    \"inputMLPrefix\":\"SEQUENCE_ID\",\r\n    \"outputMLPrefix\":\"ANALYSIS_ID\",\r\n    \"inputPath\":\"s3://stg-amili-analysis-lab/lifestrandsgx/sequencing_data/batch_lsg3_83\",\r\n    \"fileExt\":\".fq.gz\",\r\n    \"destBucket\":\"stg-amili-global-archive\",\r\n    \"destFolderKey\":\"16s/v3/test\",\r\n    \"externalApiConnection\":true,\r\n    \"forceRun\":false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://r9p0gksk2l.execute-api.ap-southeast-1.amazonaws.com/test/ml",
+					"protocol": "https",
+					"host": [
+						"r9p0gksk2l",
+						"execute-api",
+						"ap-southeast-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"test",
+						"ml"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
