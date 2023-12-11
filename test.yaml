@@ -1,0 +1,1479 @@
+---
+info:
+  _postman_id: 1d14a671-a803-47e3-83c3-64924f9c8ebb
+  name: CoFarm
+  schema: https://schema.getpostman.com/json/collection/v2.1.0/collection.json
+item:
+  - name: UserAPI
+    item:
+      - name: Auth
+        item:
+          - name: Register
+            item:
+              - name: 1. Can Register
+                event:
+                  - listen: test
+                    script:
+                      exec:
+                        - ""
+                      type: text/javascript
+                request:
+                  method: POST
+                  header:
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageVi}}"
+                      disabled: true
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageEn}}"
+                      disabled: true
+                  body:
+                    mode: raw
+                    raw: "{\r\n  \"email\": \"\",\r\n  \"phoneNumber\": \"0972165976\"\r\n}"
+                    options:
+                      raw:
+                        language: json
+                  url:
+                    raw: "{{baseUrl}}/{{usersApi}}/api/auth/can-register"
+                    host:
+                      - "{{baseUrl}}"
+                    path:
+                      - "{{usersApi}}"
+                      - api
+                      - auth
+                      - can-register
+                response: []
+              - name: 3. Register
+                event:
+                  - listen: test
+                    script:
+                      exec:
+                        - ""
+                      type: text/javascript
+                request:
+                  method: POST
+                  header:
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageVi}}"
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageEn}}"
+                      disabled: true
+                  body:
+                    mode: raw
+                    raw:
+                      "{\r\n  \"email\": \"0972165976\",\r\n  \"phoneNumber\": \"\",\r\n
+                      \ \"password\": \"00000000\",\r\n  \"firstName\": \"\",\r\n  \"lastName\":
+                      \"dang\",\r\n  \"gender\": \"Female\",\r\n  \"code\": 259267,\r\n  \"userType\":
+                      \"Farmer\"\r\n}"
+                    options:
+                      raw:
+                        language: json
+                  url:
+                    raw: "{{baseUrl}}/{{usersApi}}/api/auth/register"
+                    host:
+                      - "{{baseUrl}}"
+                    path:
+                      - "{{usersApi}}"
+                      - api
+                      - auth
+                      - register
+                response: []
+              - name: 2. Verify OTP
+                event:
+                  - listen: test
+                    script:
+                      exec:
+                        - ""
+                      type: text/javascript
+                request:
+                  method: POST
+                  header:
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageVi}}"
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageEn}}"
+                      disabled: true
+                  body:
+                    mode: raw
+                    raw: "{\r\n  \"code\": 186903,\r\n  \"userName\": \"0972165976\"\r\n}"
+                    options:
+                      raw:
+                        language: json
+                  url:
+                    raw: "{{baseUrl}}/{{usersApi}}/api/auth/verify-otp"
+                    host:
+                      - "{{baseUrl}}"
+                    path:
+                      - "{{usersApi}}"
+                      - api
+                      - auth
+                      - verify-otp
+                response: []
+          - name: Forgot password
+            item:
+              - name: 1. Can Reset Password
+                event:
+                  - listen: test
+                    script:
+                      exec:
+                        - ""
+                      type: text/javascript
+                request:
+                  method: POST
+                  header:
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageVi}}"
+                      disabled: true
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageEn}}"
+                      disabled: true
+                  body:
+                    mode: raw
+                    raw: "{\r\n  \"userName\": \"0972165976\"\r\n}"
+                    options:
+                      raw:
+                        language: json
+                  url:
+                    raw: "{{baseUrl}}/{{usersApi}}/api/auth/can-reset-password"
+                    host:
+                      - "{{baseUrl}}"
+                    path:
+                      - "{{usersApi}}"
+                      - api
+                      - auth
+                      - can-reset-password
+                response: []
+              - name: 3. Reset password
+                event:
+                  - listen: test
+                    script:
+                      exec:
+                        - ""
+                      type: text/javascript
+                request:
+                  method: POST
+                  header:
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageVi}}"
+                      disabled: true
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageEn}}"
+                  body:
+                    mode: raw
+                    raw:
+                      "{\r\n  \"newPassword\": \"12345\",\r\n  \"code\": 370291,\r\n  \"userName\":
+                      \"ydang@mailinator.com\"\r\n}"
+                    options:
+                      raw:
+                        language: json
+                  url:
+                    raw: "{{baseUrl}}/{{usersApi}}/api/auth/reset-password"
+                    host:
+                      - "{{baseUrl}}"
+                    path:
+                      - "{{usersApi}}"
+                      - api
+                      - auth
+                      - reset-password
+                response: []
+              - name: 2. Verify OTP
+                event:
+                  - listen: test
+                    script:
+                      exec:
+                        - ""
+                      type: text/javascript
+                request:
+                  method: POST
+                  header:
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageVi}}"
+                    - key: Accept-Language
+                      type: text
+                      value: "{{acceptLanguageEn}}"
+                      disabled: true
+                  body:
+                    mode: raw
+                    raw: "{\r\n  \"code\": 0,\r\n  \"userName\": \"string\"\r\n}"
+                    options:
+                      raw:
+                        language: json
+                  url:
+                    raw: "{{baseUrl}}/{{usersApi}}/api/auth/verify-otp"
+                    host:
+                      - "{{baseUrl}}"
+                    path:
+                      - "{{usersApi}}"
+                      - api
+                      - auth
+                      - verify-otp
+                response: []
+          - name: External Login
+            item:
+              - name: Facebook
+                item:
+                  - name: Get facebook app access token
+                    event:
+                      - listen: test
+                        script:
+                          exec:
+                            - "let jsonData = pm.response.json();\r"
+                            - "let token = jsonData.access_token;\r"
+                            - "pm.environment.set(\"fbAppAccessToken\", token);\r"
+                            - ""
+                          type: text/javascript
+                    request:
+                      method: GET
+                      header: []
+                      url:
+                        raw: https://graph.facebook.com/oauth/access_token?client_id={{fbAppId}}&client_secret={{fbAppSecret}}&grant_type=client_credentials
+                        protocol: https
+                        host:
+                          - graph
+                          - facebook
+                          - com
+                        path:
+                          - oauth
+                          - access_token
+                        query:
+                          - key: client_id
+                            value: "{{fbAppId}}"
+                          - key: client_secret
+                            value: "{{fbAppSecret}}"
+                          - key: grant_type
+                            value: client_credentials
+                    response: []
+                  - name: Validate facebook token
+                    request:
+                      method: GET
+                      header: []
+                      url:
+                        raw: https://graph.facebook.com/debug_token?input_token={{facebookToken}}&access_token={{fbAppAccessToken}}
+                        protocol: https
+                        host:
+                          - graph
+                          - facebook
+                          - com
+                        path:
+                          - debug_token
+                        query:
+                          - key: input_token
+                            value: "{{facebookToken}}"
+                          - key: access_token
+                            value: "{{fbAppAccessToken}}"
+                    response: []
+                  - name: Get user information
+                    request:
+                      method: GET
+                      header: []
+                      url:
+                        raw: https://graph.facebook.com/me?fields=id,email,first_name,last_name,name,gender,locale,birthday,picture&access_token={{facebookToken}}
+                        protocol: https
+                        host:
+                          - graph
+                          - facebook
+                          - com
+                        path:
+                          - me
+                        query:
+                          - key: fields
+                            value: id,email,first_name,last_name,name,gender,locale,birthday,picture
+                          - key: access_token
+                            value: "{{facebookToken}}"
+                    response: []
+                  - name: Facebook External login
+                    request:
+                      method: POST
+                      header: []
+                      body:
+                        mode: raw
+                        raw:
+                          "{\r\n  \"accessToken\": \"EAAEEqjPC48MBAMIn58YNz3kXmHJ9r13TZCBOYTV97QfLXn3VA3fGbpbwYN7v2yp21EhIm7ZBdiPEE2TbHCeTBoKDMtb4XoF0Mwzj8Pw7pHZAfYIANc9hDw2Qx2c6NK7CZBEUgAUiMZAW3OInCPJMYZBkXVvgS0ROUqESbVcSZCSu8jrwi8iZAdwaRLMQkTMVbhnmZCtr3bU1uGjoTtuqd7MpmYZC7cORS77VFCnh7ruuKOa6uDYgALF1UZA\",\r\n
+                          \ \"provider\": \"Facebook\",\r\n  \"devicePlatform\": \"Web\",\r\n
+                          \ \"deviceInformation\": \"string\"\r\n}"
+                        options:
+                          raw:
+                            language: json
+                      url:
+                        raw: "{{baseUrl}}/users-api/api/auth/external-login"
+                        host:
+                          - "{{baseUrl}}"
+                        path:
+                          - users-api
+                          - api
+                          - auth
+                          - external-login
+                    response: []
+              - name: Google
+                item:
+                  - name: Validate token
+                    request:
+                      method: GET
+                      header: []
+                      url:
+                        raw: https://oauth2.googleapis.com/tokeninfo?id_token=eyJhbGciOiJSUzI1NiIsImtpZCI6ImYwNTQxNWIxM2FjYjk1OTBmNzBkZjg2Mjc2NWM2NTVmNWE3YTAxOWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyMjg2ODE3NDMwMzMtNzA3YjVqNnZvaDBvMmUxN2c0c3M1bzNmYjdva2xwZ3AuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMjg2ODE3NDMwMzMtM2Myam9pdTNwZDZzdDR0MWNkbjRwNDdvMnRkaGlqbGwuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTEzNTI5NTQzMzIwNjUyMzgwNjUiLCJlbWFpbCI6ImRhdHkuZGFuZ2h1eW5oMjA0OTdAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiLEkOG6oXQgw50gxJDhurduZyBIdeG7s25oIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdnUXQ2bDR4Sk9TOGEweEpQSjQ3Yk5PekwxMFBGWHVrMklwTkd4MWhRPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IsSQ4bqhdCDDnSIsImZhbWlseV9uYW1lIjoixJDhurduZyBIdeG7s25oIiwibG9jYWxlIjoiZW4iLCJpYXQiOjE1OTYxMjM2NzMsImV4cCI6MTU5NjEyNzI3M30.BTlpLRg7udcFdv1gLCpoaIZ878Lu-UClu3X7Vaju59H3HeKnJKZpXZEH7Jcv5fDFQwuHb3_cajTkkXelDcmWzYcey7-aBI8CoqSl1LCpUpn2GkBdbX9RMLolW6sNFXL7Kk4PSPMHPmB3A42C_sj-bODPHq0gcfGLaBlF-LD9q-XgoqXvIG537kdkcWup_CAKnASoDXOqjf0vFO-8n7hFqDzSsdQyWsulRROP2K7P9xQzrb9oPJljYZkz1gv-cYs2aoiu9PUuLWl5dNz0CynC2xRjs7s4jEP6JEhKlaQm7u7sAsdkv0MHTllNQFFbW3qizrRPCg1Ab1vSBZPFSJ6ELg
+                        protocol: https
+                        host:
+                          - oauth2
+                          - googleapis
+                          - com
+                        path:
+                          - tokeninfo
+                        query:
+                          - key: id_token
+                            value: eyJhbGciOiJSUzI1NiIsImtpZCI6ImYwNTQxNWIxM2FjYjk1OTBmNzBkZjg2Mjc2NWM2NTVmNWE3YTAxOWUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyMjg2ODE3NDMwMzMtNzA3YjVqNnZvaDBvMmUxN2c0c3M1bzNmYjdva2xwZ3AuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMjg2ODE3NDMwMzMtM2Myam9pdTNwZDZzdDR0MWNkbjRwNDdvMnRkaGlqbGwuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTEzNTI5NTQzMzIwNjUyMzgwNjUiLCJlbWFpbCI6ImRhdHkuZGFuZ2h1eW5oMjA0OTdAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiLEkOG6oXQgw50gxJDhurduZyBIdeG7s25oIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdnUXQ2bDR4Sk9TOGEweEpQSjQ3Yk5PekwxMFBGWHVrMklwTkd4MWhRPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IsSQ4bqhdCDDnSIsImZhbWlseV9uYW1lIjoixJDhurduZyBIdeG7s25oIiwibG9jYWxlIjoiZW4iLCJpYXQiOjE1OTYxMjM2NzMsImV4cCI6MTU5NjEyNzI3M30.BTlpLRg7udcFdv1gLCpoaIZ878Lu-UClu3X7Vaju59H3HeKnJKZpXZEH7Jcv5fDFQwuHb3_cajTkkXelDcmWzYcey7-aBI8CoqSl1LCpUpn2GkBdbX9RMLolW6sNFXL7Kk4PSPMHPmB3A42C_sj-bODPHq0gcfGLaBlF-LD9q-XgoqXvIG537kdkcWup_CAKnASoDXOqjf0vFO-8n7hFqDzSsdQyWsulRROP2K7P9xQzrb9oPJljYZkz1gv-cYs2aoiu9PUuLWl5dNz0CynC2xRjs7s4jEP6JEhKlaQm7u7sAsdkv0MHTllNQFFbW3qizrRPCg1Ab1vSBZPFSJ6ELg
+                    response: []
+                  - name: Google External Login
+                    request:
+                      method: POST
+                      header: []
+                      body:
+                        mode: raw
+                        raw:
+                          "{\r\n  \"accessToken\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6ImI2M2VlMGJlMDkzZDliYzMxMmQ5NThjOTk2NmQyMWYwYzhmNmJiYmIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIyMjg2ODE3NDMwMzMtNzA3YjVqNnZvaDBvMmUxN2c0c3M1bzNmYjdva2xwZ3AuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIyMjg2ODE3NDMwMzMtM2Myam9pdTNwZDZzdDR0MWNkbjRwNDdvMnRkaGlqbGwuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMTEzNTI5NTQzMzIwNjUyMzgwNjUiLCJlbWFpbCI6ImRhdHkuZGFuZ2h1eW5oMjA0OTdAZ21haWwuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiLEkOG6oXQgw50gxJDhurduZyBIdeG7s25oIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdnUXQ2bDR4Sk9TOGEweEpQSjQ3Yk5PekwxMFBGWHVrMklwTkd4MWhRPXM5Ni1jIiwiZ2l2ZW5fbmFtZSI6IsSQ4bqhdCDDnSIsImZhbWlseV9uYW1lIjoixJDhurduZyBIdeG7s25oIiwibG9jYWxlIjoiZW4iLCJpYXQiOjE1OTYxMjg5NzYsImV4cCI6MTU5NjEzMjU3Nn0.BSgHxOxyqJ1ccrQwuuAjXFFO9z_4HCdF8Tcw-IjsvHnAgCXRMKKlh1ZT4uld-Q8tKVnxckThDqB2dh7Kn9lOlCMjRzO2ZTCPVZs6etvDMMInlyY5gA_M-vWnqyFm3SirwqFskdTsIQxXybiSVaz6rEzCRHMKZ49xC80V4oyhotp0qpJR_2h7JDmDy5M-TRUhGamyVGjYCJCaKg8wAS2_BpF1N-6KlzUS0w01OiuIJ9JW8wursiX_ClI0mgqwMf_flxIpKS26mc4zY4doXv4oN7hidqz3gdLFs2Z-8L6pu5R0OcRlKzV-H3jgApqmn3IRnYT2Yu44kBETP5Wx0oaBSw\",\r\n
+                          \ \"provider\": \"Google\",\r\n  \"devicePlatform\": \"Web\",\r\n
+                          \ \"deviceInformation\": \"string\"\r\n}"
+                        options:
+                          raw:
+                            language: json
+                      url:
+                        raw: "{{baseUrl}}/users-api/api/auth/external-login"
+                        host:
+                          - "{{baseUrl}}"
+                        path:
+                          - users-api
+                          - api
+                          - auth
+                          - external-login
+                    response: []
+          - name: Logout
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: POST
+              header:
+                - key: Authorization
+                  value: "{{token}}"
+                  type: text
+                  disabled: true
+                - key: Test
+                  value: "{{token}}"
+                  type: text
+                  disabled: true
+              body:
+                mode: raw
+                raw: "{\r\n  \"deviceId\": 0\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{usersApi}}/api/auth/logout"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{usersApi}}"
+                  - api
+                  - auth
+                  - logout
+            response: []
+          - name: Login
+            event:
+              - listen: test
+                script:
+                  exec:
+                    - let jsonData = pm.response.json();
+                    - let token = jsonData.token;
+                    - pm.environment.set("token", token);
+                    - ""
+                  type: text/javascript
+            request:
+              method: POST
+              header:
+                - key: Accept-Language
+                  type: text
+                  value: "{{acceptLanguageVi}}"
+                  disabled: true
+                - key: Accept-Language
+                  type: text
+                  value: "{{acceptLanguageEn}}"
+              body:
+                mode: raw
+                raw:
+                  "{\r\n  \"userName\": \"0972165976\",\r\n  \"password\": \"00000000\",\r\n
+                  \ \"devicePlatform\": \"Web\",\r\n  \"deviceInformation\": \"string\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/users-api/api/auth/login"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - users-api
+                  - api
+                  - auth
+                  - login
+            response: []
+          - name: Change password
+            event:
+              - listen: test
+                script:
+                  exec:
+                    - let jsonData = pm.response.json();
+                    - let token = jsonData.token;
+                    - pm.environment.set("token", token);
+                    - ""
+                  type: text/javascript
+            request:
+              method: POST
+              header:
+                - key: Accept-Language
+                  type: text
+                  value: "{{acceptLanguageVi}}"
+                  disabled: true
+                - key: Accept-Language
+                  type: text
+                  value: "{{acceptLanguageEn}}"
+              body:
+                mode: raw
+                raw:
+                  "{\r\n  \"userName\": \"0972165976\",\r\n  \"password\": \"00000000\",\r\n
+                  \ \"devicePlatform\": \"Web\",\r\n  \"deviceInformation\": \"string\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/users-api/api/auth/change-password"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - users-api
+                  - api
+                  - auth
+                  - change-password
+            response: []
+      - name: Users
+        item:
+          - name: Get User profile
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header: []
+              url:
+                raw: "{{baseUrl}}/{{usersApi}}/api/profiles/9"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{usersApi}}"
+                  - api
+                  - profiles
+                  - "9"
+            response: []
+          - name: Update user avatar
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: PUT
+              header: []
+              body:
+                mode: formdata
+                formdata:
+                  - key: file
+                    type: file
+                    src: "/C:/Users/datyd/OneDrive/Máy tính/download.jpg"
+              url:
+                raw: "{{baseUrl}}/{{usersApi}}/api/profiles/update-avatar"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{usersApi}}"
+                  - api
+                  - profiles
+                  - update-avatar
+            response: []
+          - name: Update user cover
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: PUT
+              header: []
+              body:
+                mode: formdata
+                formdata:
+                  - key: file
+                    type: file
+                    src: []
+              url:
+                raw: "{{baseUrl}}/{{usersApi}}/api/profiles/update-cover"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{usersApi}}"
+                  - api
+                  - profiles
+                  - update-cover
+                query:
+                  - key: file
+                    value: ""
+                    disabled: true
+            response: []
+          - name: Get recommended friends
+            request:
+              method: GET
+              header: []
+              url:
+                raw: ""
+            response: []
+      - name: User Metadata
+        item:
+          - name: Update Farmer metadata
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: PUT
+              header: []
+              body:
+                mode: raw
+                raw:
+                  "{\r\n    \"farmAddress\": \"Hồ Chí Minh\",\r\n    \"area\": 100,\r\n
+                  \   \"areaType\": \"Pole\",\r\n    \"isPlant\": true,\r\n    \"isBreed\":
+                  true,\r\n    \"treeType\": \"Bưởi, Mận\",\r\n    \"animalType\": \"Cua,
+                  Tôm\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{usersApi}}/api/user-metadata/farmer"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{usersApi}}"
+                  - api
+                  - user-metadata
+                  - farmer
+            response: []
+          - name: Update Businesss purchase
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: PUT
+              header: []
+              body:
+                mode: raw
+                raw:
+                  "{\r\n    \"bussinessAddress\": \"12\",\r\n    \"bussinessPhoneNumber\":
+                  \"1\",\r\n    \"targetAnimalType\": \"1\",\r\n    \"targetVegetableType\":
+                  \"1\",\r\n    \"isHomeMarket\": true,\r\n    \"isOfficialQuotaExport\":
+                  true,\r\n    \"isUnOfficialQuotaExport\": true\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{usersApi}}/api/user-metadata/update-business-purchase-agricultural-products"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{usersApi}}"
+                  - api
+                  - user-metadata
+                  - update-business-purchase-agricultural-products
+            response: []
+      - name: Relationship
+        item:
+          - name: Get recommend friends
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header: []
+              url:
+                raw: "{{baseUrl}}/{{usersApi}}/api/relationships/get-recommended-friends?RecommendedFriendsType=All"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{usersApi}}"
+                  - api
+                  - relationships
+                  - get-recommended-friends
+                query:
+                  - key: RecommendedFriendsType
+                    value: All
+            response: []
+          - name: Get relationship
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header: []
+              url:
+                raw: "{{baseUrl}}/{{usersApi}}/api/relationships?Status=Friend"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{usersApi}}"
+                  - api
+                  - relationships
+                query:
+                  - key: Status
+                    value: Friend
+            response: []
+          - name: Create relationship
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"toUserId\": 1,\r\n  \"status\": \"PendingFriendRequest\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{usersApi}}/api/relationships"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{usersApi}}"
+                  - api
+                  - relationships
+            response: []
+          - name: Accept friend request
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: PUT
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"fromUserId\": 9\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{usersApi}}/api/relationships/accept-friend-request"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{usersApi}}"
+                  - api
+                  - relationships
+                  - accept-friend-request
+            response: []
+      - name: Ping User API
+        request:
+          method: GET
+          header: []
+          url:
+            raw: "{{baseUrl}}/{{usersApi}}/api/ping"
+            host:
+              - "{{baseUrl}}"
+            path:
+              - "{{usersApi}}"
+              - api
+              - ping
+        response: []
+  - name: PostAPI
+    item:
+      - name: Posts
+        item:
+          - name: Create Post
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: POST
+              header:
+                - key: Content-Type
+                  value: multipart/form-data
+                  type: text
+                - key: Content-Type
+                  value: ""
+                  type: text
+                  disabled: true
+              body:
+                mode: formdata
+                formdata:
+                  - key: file
+                    type: file
+                    src: "/C:/Users/YDang/Desktop/bb15675bff3f00ae08cd8afe6948647b.jpg"
+                  - key: caption
+                    value: Test post after qr code
+                    type: text
+                  - key: ProductId
+                    value: "1"
+                    type: text
+                  - key: Latitude
+                    value: "123123"
+                    type: text
+                  - key: Longitude
+                    value: "1231234"
+                    type: text
+                  - key: taggedUsers
+                    value: "[]"
+                    type: text
+                  - key: file
+                    type: file
+                    src: []
+                    disabled: true
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/posts"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - posts
+            response: []
+          - name: Edit post
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: PUT
+              header:
+                - key: Content-Type
+                  type: text
+                  value: multipart/form-data
+                  disabled: true
+                - key: Content-Type
+                  type: text
+                  value: ""
+                  disabled: true
+              body:
+                mode: raw
+                raw:
+                  "{\r\n  \"caption\": \"Test edit post\",\r\n  \"productId\": 1,\r\n
+                  \ \"postId\": 88\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/posts/88"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - posts
+                  - "88"
+            response: []
+          - name: Get posts
+            protocolProfileBehavior:
+              disableBodyPruning: true
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header:
+                - key: Content-Type
+                  type: text
+                  value: multipart/form-data
+                - key: Content-Type
+                  type: text
+                  value: ""
+                  disabled: true
+              body:
+                mode: formdata
+                formdata:
+                  - key: file
+                    type: file
+                    src: "/C:/Users/YDang/Desktop/download.jpg"
+                  - key: caption
+                    value: Test asdasdasd
+                    type: text
+                  - key: ProductId
+                    value: ""
+                    type: text
+                  - key: Latitude
+                    value: ""
+                    type: text
+                  - key: Longitude
+                    value: ""
+                    type: text
+                  - key: taggedUsers
+                    value: "[]"
+                    type: text
+                  - key: file
+                    type: file
+                    src: "/C:/Users/YDang/Desktop/213111111111.png"
+                    disabled: true
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/posts/my-posts?SortNames=CreatedAt&SortDirections=OrderByDescending"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - posts
+                  - my-posts
+                query:
+                  - key: SortNames
+                    value: CreatedAt
+                  - key: SortDirections
+                    value: OrderByDescending
+                  - key: SortDirections
+                    value: OrderBy
+                    disabled: true
+            response: []
+          - name: Get news feed posts
+            protocolProfileBehavior:
+              disableBodyPruning: true
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header:
+                - key: Content-Type
+                  type: text
+                  value: multipart/form-data
+                - key: Content-Type
+                  type: text
+                  value: ""
+                  disabled: true
+              body:
+                mode: formdata
+                formdata:
+                  - key: file
+                    type: file
+                    src: "/C:/Users/YDang/Desktop/download.jpg"
+                  - key: caption
+                    value: Test asdasdasd
+                    type: text
+                  - key: ProductId
+                    value: ""
+                    type: text
+                  - key: Latitude
+                    value: ""
+                    type: text
+                  - key: Longitude
+                    value: ""
+                    type: text
+                  - key: taggedUsers
+                    value: "[]"
+                    type: text
+                  - key: file
+                    type: file
+                    src: "/C:/Users/YDang/Desktop/213111111111.png"
+                    disabled: true
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/posts/news-feed-posts?SortNames=CreatedAt&SortDirections=OrderByDescending"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - posts
+                  - news-feed-posts
+                query:
+                  - key: SortNames
+                    value: CreatedAt
+                  - key: SortDirections
+                    value: OrderByDescending
+                  - key: SortDirections
+                    value: OrderBy
+                    disabled: true
+            response: []
+          - name: Get QR code posts
+            protocolProfileBehavior:
+              disableBodyPruning: true
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header:
+                - key: Content-Type
+                  type: text
+                  value: multipart/form-data
+                - key: Content-Type
+                  type: text
+                  value: ""
+                  disabled: true
+              body:
+                mode: formdata
+                formdata: []
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/posts/qr-code-posts?SortNames=CreatedAt&SortDirections=OrderByDescending&QRCodeId=0e958b41-1cab-41dd-82b0-7fcd75533018"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - posts
+                  - qr-code-posts
+                query:
+                  - key: SortNames
+                    value: CreatedAt
+                  - key: SortDirections
+                    value: OrderByDescending
+                  - key: QRCodeId
+                    value: 0e958b41-1cab-41dd-82b0-7fcd75533018
+            response: []
+          - name: Get user posts
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header:
+                - key: Content-Type
+                  type: text
+                  value: ""
+                  disabled: true
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/posts/user-posts?userId=9&sortNames=Id&sortDirections=1"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - posts
+                  - user-posts
+                query:
+                  - key: userId
+                    value: "9"
+                  - key: sortNames
+                    value: Id
+                  - key: sortDirections
+                    value: "1"
+            response: []
+          - name: Create sale post
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw:
+                  "{\r\n  \"caption\": \"Test sale post for product no 1\",\r\n  \"productId\":
+                  1,\r\n  \"latitude\": \"string\",\r\n  \"longitude\": \"string\",\r\n
+                  \ \"qrCodeImageUrl\": \"https://cofarm-dev.s3-ap-southeast-1.amazonaws.com/qrcode-images/0e958b41-1cab-41dd-82b0-7fcd75533018.png\",\r\n
+                  \ \"qrCodeId\": \"0e958b41-1cab-41dd-82b0-7fcd75533018\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/posts/sale-post"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - posts
+                  - sale-post
+            response: []
+          - name: Share post
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"postId\": 1099,\r\n  \"caption\": \"string\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/posts/share"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - posts
+                  - share
+            response: []
+      - name: Reaction
+        item:
+          - name: Create reaction
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"postId\": 80,\r\n  \"type\": \"Like\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/reactions"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - reactions
+            response: []
+          - name: Delete reaction
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: DELETE
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"postId\": 3\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/reactions"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - reactions
+            response: []
+          - name: Get reactions
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header: []
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/reactions?PostId=80"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - reactions
+                query:
+                  - key: PostId
+                    value: "80"
+            response: []
+      - name: Comments
+        item:
+          - name: Create comment
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"postId\": 80,\r\n  \"comment\": \"Hello from api\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/comments"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - comments
+            response: []
+          - name: Get comments
+            protocolProfileBehavior:
+              disableBodyPruning: true
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header: []
+              body:
+                mode: raw
+                raw: ""
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/comments?PostId=80"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - comments
+                query:
+                  - key: PostId
+                    value: "80"
+            response: []
+          - name: Delete comment
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: DELETE
+              header: []
+              body:
+                mode: raw
+                raw: ""
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/comments/1"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - comments
+                  - "1"
+            response: []
+          - name: Post Owner action
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: PUT
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"action\": \"Delete\",\r\n  \"postId\": 1\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/comments/post-owner-action/1"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - comments
+                  - post-owner-action
+                  - "1"
+            response: []
+      - name: Reply
+        item:
+          - name: Create Reply
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw: "{\r\n  \"commentId\": 4,\r\n  \"reply\": \"Hello from api 1\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/replies"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - replies
+            response: []
+          - name: Delete reply
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: DELETE
+              header: []
+              url:
+                raw: "{{baseUrl}}/{{postsApi}}/api/replies/"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{postsApi}}"
+                  - api
+                  - replies
+                  - ""
+            response: []
+      - name: Ping Post API
+        request:
+          method: GET
+          header: []
+          url:
+            raw: "{{baseUrl}}/{{postsApi}}/api/ping"
+            host:
+              - "{{baseUrl}}"
+            path:
+              - "{{postsApi}}"
+              - api
+              - ping
+        response: []
+  - name: NotificationAPI
+    item:
+      - name: Notifications
+        item:
+          - name: Test FCM Notifiation
+            request:
+              auth:
+                type: noauth
+              method: POST
+              header:
+                - key: Authorization
+                  value: key={{fcmServerKey}}
+                  type: text
+              body:
+                mode: raw
+                raw:
+                  "{\r\n  \"notification\": {\r\n    \"title\": \"Portugal vs. Denmark\",\r\n
+                  \   \"body\": \"5 to 1\",\r\n    \"icon\": \"firebase-logo.png\",\r\n
+                  \   \"click_action\": \"http://localhost:8081\"\r\n  },\r\n  \"to\": \"daSLqDjJLWXL2IWxAEC58L:APA91bFGpDP0nLZ1GeRuydJHnDvW-orr5WTaAdKuUYiFxdU9YYDzQiBCvz3GI4V3xObDuJG8f_hwKOG5QAHZ-u9KHJtX_mV7lUorZeK9EXAe3oOJB0GLxFGicgtRIWh05vKSD9YSckW1\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: https://fcm.googleapis.com/fcm/send
+                protocol: https
+                host:
+                  - fcm
+                  - googleapis
+                  - com
+                path:
+                  - fcm
+                  - send
+            response: []
+      - name: Ping Notification API
+        request:
+          method: GET
+          header: []
+          url:
+            raw: "{{baseUrl}}/{{notificationsApi}}/api/ping"
+            host:
+              - "{{baseUrl}}"
+            path:
+              - "{{notificationsApi}}"
+              - api
+              - ping
+        response: []
+  - name: APIGateway
+    item:
+      - name: Ping API Gateway
+        request:
+          method: GET
+          header: []
+          url:
+            raw: "{{baseUrl}}/api/ping"
+            host:
+              - "{{baseUrl}}"
+            path:
+              - api
+              - ping
+        response: []
+  - name: ProductAPI
+    item:
+      - name: Products
+        item:
+          - name: Get products
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header: []
+              url:
+                raw: "{{baseUrl}}/{{productsApi}}/api/products"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{productsApi}}"
+                  - api
+                  - products
+            response: []
+      - name: QR Code
+        item:
+          - name: Create QR Code
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: POST
+              header: []
+              body:
+                mode: raw
+                raw:
+                  "{\r\n  \"endDate\": \"2020-07-28T00:22:12.619Z\",\r\n  \"startDate\":
+                  \"2020-07-28T00:22:12.619Z\",\r\n  \"productHarvestDate\": \"2020-07-28T00:22:12.619Z\",\r\n
+                  \ \"productId\": 7,\r\n  \"productQuantityEstimated\": \"F\",\r\n  \"type1Convention\":
+                  \"F\",\r\n  \"type1Percentage\": \"30\",\r\n  \"type2Convention\": \"C\",\r\n
+                  \ \"type2Percentage\": \"30\",\r\n  \"type3Convention\": \"G\",\r\n  \"type3Percentage\":
+                  \"40\"\r\n}"
+                options:
+                  raw:
+                    language: json
+              url:
+                raw: "{{baseUrl}}/{{productsApi}}/api/qrcodes"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{productsApi}}"
+                  - api
+                  - qrcodes
+            response: []
+          - name: Get QR Code details
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header: []
+              url:
+                raw: "{{baseUrl}}/{{productsApi}}/api/qrcodes/0e958b41-1cab-41dd-82b0-7fcd75533018"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{productsApi}}"
+                  - api
+                  - qrcodes
+                  - 0e958b41-1cab-41dd-82b0-7fcd75533018
+            response: []
+          - name: Get list qr code
+            request:
+              auth:
+                type: bearer
+                bearer:
+                  - key: token
+                    value: "{{token}}"
+                    type: string
+              method: GET
+              header: []
+              url:
+                raw: "{{baseUrl}}/{{productsApi}}/api/qrcodes"
+                host:
+                  - "{{baseUrl}}"
+                path:
+                  - "{{productsApi}}"
+                  - api
+                  - qrcodes
+            response: []
+      - name: Ping Product API
+        request:
+          method: GET
+          header: []
+          url:
+            raw: "{{baseUrl}}/{{productsApi}}/api/ping"
+            host:
+              - "{{baseUrl}}"
+            path:
+              - "{{productsApi}}"
+              - api
+              - ping
+        response: []
