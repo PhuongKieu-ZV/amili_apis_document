@@ -1,0 +1,8 @@
+{
+  "name": "api_document",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/PhuongKieu-ZV/amili_apis_document.git",
+  "author": "PhuongKieu <phuongkhn@zigvy.com>",
+  "license": "MIT"
+}

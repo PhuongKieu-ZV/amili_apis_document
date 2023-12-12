@@ -1,0 +1,73 @@
+{
+  "organization": {
+    "customRoles": [
+      {
+        "name": "Operation Plus 1",
+        "scopes": [1, 2, 3, 4]
+      }
+    ],
+    "supportedLanguages": ["vi", "en", "cn"],
+    "pathLabel": "https://amili-dev.s3.ap-southeast-1.amazonaws.com/languages/config2",
+    "projectConfiguration": {
+      "pdfCustomizationTemplates": [
+        {
+          "language": "en",
+          "amiliLogo": {
+            "turnOn": true,
+            "customValue": {
+              "key": "lilac/zigvy.png",
+              "fileName": "zigvy.png",
+              "bucketName": "amili-bucket"
+            }
+          },
+          "clientLogo": {
+            "turnOn": true,
+            "customValue": {
+              "key": "lilac/zigvy.png",
+              "fileName": "zigvy.png",
+              "bucketName": "amili-bucket"
+            }
+          },
+          "filePrefix": {
+            "turnOn": true,
+            "customValue": "AML"
+          },
+          "reportInfo": {
+            "turnOn": true,
+            "customValue": "Report Info"
+          },
+          "diseaseRisk": true,
+          "doctorLetter": {
+            "turnOn": true,
+            "customValue": "Letter 1"
+          },
+          "templateName": "Option 1",
+          "doctorSignOff": {
+            "turnOn": true,
+            "customValue": "Doctor"
+          },
+          "doctorSignature": {
+            "turnOn": true,
+            "customValue": {
+              "key": "lilac/zigvy.png",
+              "fileName": "zigvy.png",
+              "bucketName": "amili-bucket"
+            }
+          },
+          "reportCoverImage": {
+            "turnOn": true,
+            "customValue": {
+              "key": "lilac/zigvy.png",
+              "fileName": "zigvy.png",
+              "bucketName": "amili-bucket"
+            }
+          },
+          "foodRecommendation": true,
+          "microBiomeOverview": true,
+          "moreHeightInsights": true,
+          "supplementsRecommendation": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,206 @@
+openapi: 3.0.0
+servers:
+  - url: { serverUrl }
+    variables:
+      serverUrl:
+        default: https://api.v2.dev.bioandme.asia # Staging server
+        enum:
+          - https://api.v2.dev.bioandme.asia # Staging server
+          - https://api.bioandme.asia # Production server
+info:
+  description: >
+    This is an **example** API to demonstrate features of the OpenAPI
+    specification.
+
+    # Introduction
+
+    # Authentication
+  version: 1.0.0
+  title: Swagger Lilac
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    name: API Support
+    email: vanbt@zigvy.com
+  x-logo:
+    url: "https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/image+(7).png"
+    altText: Lilac logo
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+  - name: orders
+    description: Everything about orders
+  - name: order_paging_model
+    x-displayName: The Order Pagination Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/OrderPagingModel" />
+  - name: order_model
+    x-displayName: The Order Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/OrderModel" />
+x-tagGroups:
+  - name: Order Management
+    tags:
+      - orders
+  - name: Model
+    tags:
+      - order_paging_model
+paths:
+  /organization/order:
+    get:
+      tags:
+        - orders
+      summary: Returns all orders from the system that the user has access to view
+      description: Returns all orders from the system that the user has access to view
+      operationId: getOrders
+      parameters:
+        - $ref: "#/components/parameters/orderParam"
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/takeParam"
+        - $ref: "#/components/parameters/qParam"
+        - $ref: "#/components/parameters/tenantIdParam"
+        - $ref: "#/components/parameters/deletedParam"
+        - $ref: "#/components/parameters/orderFieldParam"
+        - $ref: "#/components/parameters/itemCountParam"
+        - name: projectId
+          in: query
+          description: ID of the project to get
+          required: false
+          schema:
+            type: string
+        - name: productType
+          in: query
+          description: productType
+          required: false
+          schema:
+            type: string
+            enum:
+              - KIT
+              - PROBIOTIC
+              - BUNDLE
+        - name: startDate
+          in: query
+          description: startDate
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          description: endDate
+          required: false
+          schema:
+            type: string
+            format: date
+      response:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderPagingModel"
+components:
+  parameters:
+    orderParam:
+      in: query
+      name: order
+      required: false
+      schema:
+        type: string
+        enum:
+          - ASC
+          - DESC
+        default: DESC
+      description: order field with DESC or ASC
+    pageParam:
+      in: query
+      name: page
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+      description: ""
+    takeParam:
+      in: query
+      name: take
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 1000
+        default: 1
+      description: The numbers of items to return.
+    qParam:
+      in: query
+      name: q
+      required: false
+      schema:
+        type: string
+      description: ""
+    tenantIdParam:
+      in: query
+      name: tenantId
+      required: false
+      schema:
+        type: string
+      description: ID of the organization to get
+    deletedParam:
+      in: query
+      name: deleted
+      required: false
+      schema:
+        type: string
+        enum:
+          - "true"
+          - "false"
+      description: ""
+    orderFieldParam:
+      in: query
+      name: orderField
+      required: false
+      schema:
+        type: string
+      description: ""
+    itemCountParam:
+      in: query
+      name: itemCount
+      required: false
+      schema:
+        type: integer
+      description: Total items
+  schemas:
+    OrderModel:
+      type: object
+      properties:
+        serial:
+          type: string
+    OrderPagingModel:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: ""
+          readOnly: true
+        take:
+          type: integer
+          description: ""
+          readOnly: true
+        itemCount:
+          type: integer
+          description: ""
+          readOnly: true
+        pageCount:
+          type: integer
+          description: ""
+          readOnly: true
+        hasPreviousPage:
+          type: boolean
+          readOnly: true
+        hasNextPage:
+          type: boolean
+          readOnly: true
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderModel"
