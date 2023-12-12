@@ -222,8 +222,7 @@ components:
         showAddressSection:
           type: boolean
         defaultWorkflowValue:
-          schema:
-            $ref: "#/components/schemas/IWorkflowValue"
+          $ref: "#/components/schemas/IWorkflowValue"
     DiscountCode:
       type: object
       properties:
@@ -298,9 +297,7 @@ components:
         partnerName:
           type: string
         chanel:
-          type: object
-          schema:
-            $ref: "#/components/schemas/ChannelDto"
+          $ref: "#/components/schemas/ChannelDto"
     OrderPagingModel:
       type: object
       properties:
