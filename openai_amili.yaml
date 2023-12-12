@@ -36,7 +36,7 @@ tags:
     x-displayName: The DiscountCode Dto
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/DiscountCode" />
-  - name: discount_code
+  - name: channel_dto
     x-displayName: The Channel Dto
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/ChannelDto" />
@@ -53,7 +53,7 @@ x-tagGroups:
       - order_model
       - order_paging_model
       - discount_code
-      - discount_code
+      - channel_dto
       - workflow_value
 paths:
   /organization/order:
