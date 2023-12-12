@@ -1,12 +1,6 @@
 openapi: 3.0.0
 servers:
-  - url: { serverUrl }
-    variables:
-      serverUrl:
-        default: https://api.v2.dev.bioandme.asia # Staging server
-        enum:
-          - https://api.v2.dev.bioandme.asia # Staging server
-          - https://api.bioandme.asia # Production server
+  - url: https://api.v2.dev.bioandme.asia
 info:
   description: >
     This is an **example** API to demonstrate features of the OpenAPI
