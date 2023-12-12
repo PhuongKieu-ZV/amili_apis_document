@@ -38,6 +38,7 @@ x-tagGroups:
       - orders
   - name: Model
     tags:
+      - order_model
       - order_paging_model
 paths:
   /organization/order:
@@ -86,7 +87,7 @@ paths:
           schema:
             type: string
             format: date
-      response:
+      responses:
         "200":
           description: successful operation
           content:
