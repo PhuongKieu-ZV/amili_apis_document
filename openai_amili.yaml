@@ -32,6 +32,18 @@ tags:
     x-displayName: The Order Dto
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/OrderModel" />
+  - name: discount_code
+    x-displayName: The DiscountCode Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/DiscountCode" />
+  - name: discount_code
+    x-displayName: The Channel Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/ChannelDto" />
+  - name: workflow_value
+    x-displayName: The IWorkflowValue Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/IWorkflowValue" />
 x-tagGroups:
   - name: Order Management
     tags:
@@ -40,6 +52,9 @@ x-tagGroups:
     tags:
       - order_model
       - order_paging_model
+      - discount_code
+      - discount_code
+      - workflow_value
 paths:
   /organization/order:
     get:
@@ -106,7 +121,7 @@ components:
           - ASC
           - DESC
         default: DESC
-      description: order field with DESC or ASC
+      description: ""
     pageParam:
       in: query
       name: page
@@ -165,11 +180,127 @@ components:
         type: integer
       description: Total items
   schemas:
+    IWorkflowValue:
+      type: object
+      properties:
+        sampleType:
+          type: array
+          enum: [STOOL, URINE, SALIVA, ZYMO, ETHANOL, CALPROTEIN, RAW, INVITRO]
+        ffq:
+          type: boolean
+        reibursement:
+          type: boolean
+        report:
+          type: array
+          enum: [NONE, ASV, PDF, SCORE_TABLE, TAXA_TABLE, DISEASE_RISK]
+        collectionMedium:
+          type: array
+          enum: [ZYMO, ETHANOL, INVITRO, RAW]
+    ChannelDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        autoGenerateKit:
+          type: boolean
+        autoCreateOrderFromQualtrics:
+          type: boolean
+        sendBMEEmail:
+          type: boolean
+        sendPartnerEmail:
+          type: boolean
+        timeline:
+          type: string
+          enum:
+            - AMD
+            - BME
+            - RESEARCH
+            - FMT
+            - FFH
+        showAddressSection:
+          type: boolean
+        defaultWorkflowValue:
+          schema:
+            $ref: "#/components/schemas/IWorkflowValue"
+    DiscountCode:
+      type: object
+      properties:
+        code:
+          type: string
+        amount:
+          type: string
+        type:
+          type: string
     OrderModel:
       type: object
       properties:
-        serial:
+        id:
           type: string
+        userId:
+          type: string
+        tenantId:
+          type: string
+        channelId:
+          type: string
+        addressId:
+          type: string
+        projectId:
+          type: string
+        orderedAt:
+          type: string
+          format: date
+        orderStatus:
+          type: string
+          enum:
+            - CANCELLED
+            - PENDING
+            - CONFIRMED
+            - DELIVERING
+            - DELIVERED
+            - RETURNED
+            - REFUNDED
+        paymentStatus:
+          type: string
+          enum:
+            - PAID
+            - UNPAID
+            - REFUNDED
+        total:
+          type: integer
+        trackingNumber:
+          type: string
+        displayId:
+          type: string
+        notPrintOut:
+          type: boolean
+        unregisterOrder:
+          type: boolean
+        unregisterEmailAddress:
+          type: string
+        actualBiomeOrderId:
+          type: string
+        discountCodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/DiscountCode"
+        totalDiscounts:
+          type: integer
+        notes:
+          type: string
+        isSolvedNotes:
+          type: boolean
+        idTrackingSpecialOrder:
+          type: string
+        invoiceNo:
+          type: string
+        partnerName:
+          type: string
+        chanel:
+          type: object
+          schema:
+            $ref: "#/components/schemas/ChannelDto"
     OrderPagingModel:
       type: object
       properties:
