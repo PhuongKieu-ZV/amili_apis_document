@@ -202,7 +202,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/OrderModel"
         "400":
-          description: The number of kits is not the same as the order quantity | This Kit ID already exists
+          description: The number of kits is not the same as the order quantity.
           content:
             application/json:
               schema:
