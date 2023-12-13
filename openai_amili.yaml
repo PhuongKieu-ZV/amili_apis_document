@@ -756,7 +756,8 @@ components:
           $ref: "#/components/schemas/ProjectDto"
         orderItems:
           type: array
-          items: "#/components/schemas/OrderItemDto"
+          items:
+            $ref: "#/components/schemas/OrderItemDto"
     OrderPagingModel:
       type: object
       properties:
