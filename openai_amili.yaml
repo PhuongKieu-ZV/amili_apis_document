@@ -36,7 +36,7 @@ info:
     name: Apache 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
-  - name: orders
+  - name: Orders
     description: Everything about orders
   - name: order_paging_model
     x-displayName: The Order Pagination Dto
@@ -102,33 +102,27 @@ tags:
     x-displayName: The CustomError Dto
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/CustomErrorDto" />
-  - name: channels
+  - name: Channels
     description: Everything about channels
-  - name: projects
+  - name: Projects
     description: Everything about projects
   - name: project_paging
     x-displayName: The Project Pagination Dto
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/PagingProjectDTO" />
-  - name: products
+  - name: Products
     description: Everything about products
   - name: product_paging
     x-displayName: The Product Pagination Dto
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/PagingProductDTO" />
 x-tagGroups:
-  - name: Channel Management
+  - name: API Documentation
     tags:
-      - channels
-  - name: Project Management
-    tags:
-      - projects
-  - name: Product Management
-    tags:
-      - products
-  - name: Order Management
-    tags:
-      - orders
+      - Channels
+      - Projects
+      - Products
+      - Orders
   - name: Model
     tags:
       - order_model
@@ -153,7 +147,7 @@ paths:
   /organization/channel:
     get:
       tags:
-        - channels
+        - Channels
       summary: Returns all channels from the system
       description: Returns all channels from the system
       operationId: getChannels
@@ -188,7 +182,7 @@ paths:
   /organization/project:
     get:
       tags:
-        - projects
+        - Projects
       summary: Returns projects from the system
       description: Returns projects from the system
       operationId: getProjects
@@ -223,7 +217,7 @@ paths:
   /organization/product:
     get:
       tags:
-        - products
+        - Products
       summary: Returns products from the system
       description: Returns products from the system
       operationId: getProducts
@@ -263,7 +257,7 @@ paths:
   /organization/order:
     get:
       tags:
-        - orders
+        - Orders
       summary: Returns all orders from the system that the user has access to view
       description: Returns all orders from the system that the user has access to view
       operationId: getOrders
@@ -317,7 +311,7 @@ paths:
                 $ref: "#/components/schemas/OrderPagingModel"
     post:
       tags:
-        - orders
+        - Orders
       summary: Add a new order
       description: Add a new order
       operationId: createOrder
@@ -351,7 +345,7 @@ paths:
   "/organization/order/{orderId}":
     get:
       tags:
-        - orders
+        - Orders
       summary: Find order by Id
       description: Returns a single order
       operationId: getOrderById
