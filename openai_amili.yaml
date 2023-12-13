@@ -1,6 +1,9 @@
 openapi: 3.0.0
 servers:
   - url: https://api.v2.dev.bioandme.asia
+    description: Staging server
+  - url: https://api.bioandme.asia
+    description: Production server
 info:
   description: >
     This is an **example** API to demonstrate features of the OpenAPI
@@ -8,13 +11,24 @@ info:
 
     # Introduction
 
-    # Authentication
+    Lilac API documentation.
+
+    # API Token Authentication
+
+    The Lilac API provides an API token based authentication system. To authenticate using a valid token, include your token under the HTTP header X-API-KEY.
+
+    **How to Find Your Token**
+      1. Login Lilac dashboard [https://app.v3.dev.amili.asia/](https://app.v3.dev.amili.asia/)
+      2. Go to API Key Management
+      3. Click Create if you haven't generated your API Key yet
+      4. Copy API Key
   version: 1.0.0
   title: Swagger Lilac
   termsOfService: "http://swagger.io/terms/"
   contact:
     name: API Support
-    email: vanbt@zigvy.com
+    email: apiteam@swagger.io
+    url: https://github.com/Redocly/redoc
   x-logo:
     url: "https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/image+(7).png"
     altText: Lilac logo
@@ -44,6 +58,50 @@ tags:
     x-displayName: The IWorkflowValue Dto
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/IWorkflowValue" />
+  - name: project_dto
+    x-displayName: The Project Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/ProjectDto" />
+  - name: order_item_dto
+    x-displayName: The OrderItem Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/OrderItemDto" />
+  - name: meta_data_order_item
+    x-displayName: The MetadataOrderItem Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/MetadataOrderItem" />
+  - name: external_metadata
+    x-displayName: The ExternalMetadata Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/ExternalMetadata" />
+  - name: discount_location
+    x-displayName: The DiscountAllocation Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/DiscountAllocation" />
+  - name: product_model
+    x-displayName: The Product Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/ProductDto" />
+  - name: kit_model
+    x-displayName: The Kit Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/KitDto" />
+  - name: order_create_model
+    x-displayName: The OrderCreate Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/OrderCreateDto" />
+  - name: order_register_model
+    x-displayName: The OrderRegister Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/OrderRegisterDto" />
+  - name: order_item_register_model
+    x-displayName: The OrderItemRegister Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/OrderItemRegisterDto" />
+  - name: error_model
+    x-displayName: The CustomError Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/CustomErrorDto" />
 x-tagGroups:
   - name: Order Management
     tags:
@@ -55,6 +113,17 @@ x-tagGroups:
       - discount_code
       - channel_dto
       - workflow_value
+      - project_dto
+      - order_item_dto
+      - meta_data_order_item
+      - external_metadata
+      - discount_location
+      - product_model
+      - kit_model
+      - order_create_model
+      - order_register_model
+      - order_item_register_model
+      - error_model
 paths:
   /organization/order:
     get:
@@ -63,6 +132,8 @@ paths:
       summary: Returns all orders from the system that the user has access to view
       description: Returns all orders from the system that the user has access to view
       operationId: getOrders
+      security:
+        - ApiKeyAuth: []
       parameters:
         - $ref: "#/components/parameters/orderParam"
         - $ref: "#/components/parameters/pageParam"
@@ -104,12 +175,50 @@ paths:
             format: date
       responses:
         "200":
-          description: successful operation
+          description: Successful operation
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/OrderPagingModel"
+    post:
+      tags:
+        - orders
+      summary: Add a new order
+      description: Add a new order
+      operationId: createOrder
+      security:
+        - ApiKeyAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OrderCreateDto"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OrderModel"
+        "400":
+          description: The number of kits is not the same as the order quantity | This Kit ID already exists
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomErrorDto"
+        "404":
+          description: This Kit ID already exists.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomErrorDto"
 components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
   parameters:
     orderParam:
       in: query
@@ -180,6 +289,351 @@ components:
         type: integer
       description: Total items
   schemas:
+    CustomErrorDto:
+      type: object
+      properties:
+        message:
+          type: string
+        errorCode:
+          type: string
+        statusCode:
+          type: integer
+        error:
+          type: string
+    OrderRegisterDto:
+      type: object
+      properties:
+        partnerName:
+          type: string
+        invoiceNo:
+          type: string
+        addressId:
+          type: string
+        projectId:
+          type: string
+        channelId:
+          type: string
+        notes:
+          type: string
+      required:
+        - projectId
+        - channelId
+    OrderItemRegisterDto:
+      type: object
+      properties:
+        productId:
+          type: string
+        price:
+          type: integer
+        quantity:
+          type: integer
+        metadata:
+          $ref: "#/components/schemas/MetadataOrderItem"
+        kitSerials:
+          type: array
+          items:
+            type: string
+      required:
+        - productId
+        - price
+        - quantity
+        - kitSerials
+    OrderCreateDto:
+      type: object
+      properties:
+        order:
+          $ref: "#/components/schemas/OrderRegisterDto"
+        orderItems:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderItemRegisterDto"
+    KitDto:
+      type: object
+      properties:
+        id:
+          type: string
+        profileId:
+          type: string
+        b2dProfileName:
+          type: string
+        b2dProfileNameData:
+          type: object
+          properties:
+            firstName:
+              type: string
+            lastName:
+              type: string
+            fullName:
+              type: string
+        orderItemId:
+          type: string
+        projectId:
+          type: string
+        serial:
+          type: string
+        analysisId:
+          type: string
+        activated:
+          type: boolean
+        activatedAt:
+          type: string
+          format: date
+        sampleReceivedAt:
+          type: string
+          format: date
+        status:
+          type: string
+          enum:
+            - UNACTIVATED
+            - SENT_OUT
+            - ACTIVATED
+            - KIT_RECEIVED
+            - DNA_EXTRACTED
+            - SEQUENCING
+            - UNDER_SUPPORT
+            - COMPLETED
+            - FFQ_SURVEY_COMPLETED
+            - ALIQUOTED
+        isUnassigned:
+          type: boolean
+        isSurveyFinished:
+          type: boolean
+        kronaReportReady:
+          type: boolean
+        b2cScoreReady:
+          type: boolean
+        abunScoreReady:
+          type: boolean
+        top10BacteriaReportReady:
+          type: boolean
+        kitSendOut:
+          type: boolean
+        kitSendOutAt:
+          type: string
+          format: date
+        completedAt:
+          type: string
+          format: date
+        kitReceivedAt:
+          type: string
+          format: date
+        notes:
+          type: string
+        internalSurveyResultId:
+          type: string
+        isFfqSurveyCompletion:
+          type: string
+        labId:
+          type: string
+        pdfPublish:
+          type: boolean
+        pdfPath:
+          type: string
+        qualtricsResponseId:
+          type: string
+        surveyStartAt:
+          type: string
+          format: date
+        isAliquoted:
+          type: boolean
+        externalId:
+          type: string
+        pdfQC:
+          type: string
+          enum:
+            - SUCCESS
+            - FAILED
+        reportStatus:
+          type: string
+          enum:
+            - UNDER_SUPPORT
+            - PUBLISHED
+            - UNPUBLISHED
+        tenantId:
+          type: string
+    ProductDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        stock:
+          type: integer
+        price:
+          type: integer
+        active:
+          type: boolean
+        image:
+          type: string
+        displayId:
+          type: string
+        productType:
+          type: string
+          enum:
+            - KIT
+            - PROBIOTIC
+            - BUNDLE
+        tenantId:
+          type: string
+        channelId:
+          type: string
+    DiscountAllocation:
+      type: object
+      properties:
+        amount:
+          type: string
+        discount_application_index:
+          type: integer
+    ExternalMetadata:
+      type: object
+      properties:
+        externalId:
+          type: string
+        volume:
+          type: integer
+        concentration:
+          type: integer
+    MetadataOrderItem:
+      type: object
+      properties:
+        customMessageFee:
+          type: integer
+        customMessage:
+          type: string
+        externalMetadata:
+          type: array
+          items:
+            $ref: "#/components/schemas/ExternalMetadata"
+    OrderItemDto:
+      type: object
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        productId:
+          type: string
+        quantity:
+          type: integer
+        price:
+          type: integer
+        metadata:
+          $ref: "#/components/schemas/MetadataOrderItem"
+        kitSerials:
+          type: array
+          items:
+            type: string
+        discountAllocations:
+          $ref: "#/components/schemas/DiscountAllocation"
+        product:
+          $ref: "#/components/schemas/ProductDto"
+    ProjectDto:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        channelId:
+          type: string
+        displayId:
+          type: string
+        clinicCode:
+          type: string
+        addressId:
+          type: string
+        principalInvestigatorName:
+          type: string
+        qualtricsSurveyId:
+          type: array
+          items:
+            type: string
+        workflow:
+          $ref: "#/components/schemas/IWorkflowValue"
+        externalResearchProjectId:
+          type: string
+        surveyCollectionId:
+          type: string
+        amiliPIC:
+          type: string
+        isPartnerEmailD2D31Trigger:
+          type: boolean
+        isPartnerEmailD4Trigger:
+          type: boolean
+        organizationName:
+          type: string
+        tenantId:
+          type: string
+        collaborator:
+          type: string
+          enum:
+            - RESEARCH
+            - LAB
+            - CLINIC
+            - BUSINESS
+        externalSampleType:
+          type: string
+          enum:
+            - STOOL
+            - DNA
+            - FASTQ
+        externalSpeciesType:
+          type: string
+          enum:
+            - HUMAN
+            - ANIMAL
+            - BACTERIA
+        externalTissueNucleicAcidType:
+          type: string
+          enum:
+            - GENOMIC_DNA
+        externalTissueOrgan:
+          type: string
+          enum:
+            - STOOL
+            - SALIVA
+        externalElutionBuffer:
+          type: string
+          enum:
+            - DDH2O
+            - TE_BUFFER
+            - RNA_FREE_OR_DEPC
+            - PURE_ETHANOL
+        externalPipeline:
+          type: string
+          enum:
+            - V2_5
+            - V3_0
+        externalOutputType:
+          type: array
+          enum: [NONE, ASV, PDF, SCORE_TABLE, TAXA_TABLE, DISEASE_RISK]
+        pdfTemplateName:
+          type: string
+        externalSequencingTypeId:
+          type: string
+        externalHaveSentB1:
+          type: boolean
+        externalHaveSentB2:
+          type: boolean
+        externalEmail:
+          type: string
+        inputMLPrefix:
+          type: string
+          enum:
+            - KIT_ID
+            - ANALYSIS_ID
+            - EXTERNAL_ID
+        outputMLPrefix:
+          type: string
+          enum:
+            - KIT_ID
+            - ANALYSIS_ID
+            - EXTERNAL_ID
+        prefix:
+          type: string
     IWorkflowValue:
       type: object
       properties:
@@ -298,6 +752,11 @@ components:
           type: string
         chanel:
           $ref: "#/components/schemas/ChannelDto"
+        project:
+          $ref: "#/components/schemas/ProjectDto"
+        orderItems:
+          type: array
+          items: "#/components/schemas/OrderItemDto"
     OrderPagingModel:
       type: object
       properties:

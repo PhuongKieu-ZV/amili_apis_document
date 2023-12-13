@@ -4,5 +4,11 @@
   "main": "index.js",
   "repository": "https://github.com/PhuongKieu-ZV/amili_apis_document.git",
   "author": "PhuongKieu <phuongkhn@zigvy.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn redocly build-docs openai_amili.yaml -o index.html"
+  },
+  "dependencies": {
+    "@redocly/cli": "^1.5.0"
+  }
 }
