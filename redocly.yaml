@@ -1,0 +1,16 @@
+theme:
+  openapi:
+    theme:
+      logo:
+        gutter: "35px"
+      sidebar:
+        backgroundColor: "#f2eef3"
+        activeBgColor: "#ffffff"
+        activeTextColor: "#da2e9a"
+        textColor: "#232567"
+      typography:
+        fontSize: "16px"
+        headings:
+          fontFamily: "Roboto, sans-serif"
+          fontWeight: "bold"
+          lineHeight: "1em"

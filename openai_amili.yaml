@@ -28,7 +28,7 @@ info:
   contact:
     name: API Support
     email: apiteam@swagger.io
-    url: https://github.com/Redocly/redoc
+    url: https://app.v3.dev.amili.asia/
   x-logo:
     url: "https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/image+(7).png"
     altText: Lilac logo
@@ -102,7 +102,30 @@ tags:
     x-displayName: The CustomError Dto
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/CustomErrorDto" />
+  - name: channels
+    description: Everything about channels
+  - name: projects
+    description: Everything about projects
+  - name: project_paging
+    x-displayName: The Project Pagination Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/PagingProjectDTO" />
+  - name: products
+    description: Everything about products
+  - name: product_paging
+    x-displayName: The Product Pagination Dto
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/PagingProductDTO" />
 x-tagGroups:
+  - name: Channel Management
+    tags:
+      - channels
+  - name: Project Management
+    tags:
+      - projects
+  - name: Product Management
+    tags:
+      - products
   - name: Order Management
     tags:
       - orders
@@ -124,7 +147,119 @@ x-tagGroups:
       - order_register_model
       - order_item_register_model
       - error_model
+      - project_paging
+      - product_paging
 paths:
+  /organization/channel:
+    get:
+      tags:
+        - channels
+      summary: Returns all channels from the system
+      description: Returns all channels from the system
+      operationId: getChannels
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: "#/components/parameters/orderParam"
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/takeParam"
+        - $ref: "#/components/parameters/qParam"
+        - $ref: "#/components/parameters/tenantIdParam"
+        - $ref: "#/components/parameters/deletedParam"
+        - $ref: "#/components/parameters/orderFieldParam"
+        - $ref: "#/components/parameters/itemCountParam"
+        - name: channelIds
+          in: query
+          description: Ids of the channels to get
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ChannelDto"
+  /organization/project:
+    get:
+      tags:
+        - projects
+      summary: Returns projects from the system
+      description: Returns projects from the system
+      operationId: getProjects
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: "#/components/parameters/orderParam"
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/takeParam"
+        - $ref: "#/components/parameters/qParam"
+        - $ref: "#/components/parameters/tenantIdParam"
+        - $ref: "#/components/parameters/deletedParam"
+        - $ref: "#/components/parameters/orderFieldParam"
+        - $ref: "#/components/parameters/itemCountParam"
+        - name: channelIds
+          in: query
+          description: Ids of the channels to get
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PagingProjectDTO"
+  /organization/product:
+    get:
+      tags:
+        - products
+      summary: Returns products from the system
+      description: Returns products from the system
+      operationId: getProducts
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - $ref: "#/components/parameters/orderParam"
+        - $ref: "#/components/parameters/pageParam"
+        - $ref: "#/components/parameters/takeParam"
+        - $ref: "#/components/parameters/qParam"
+        - $ref: "#/components/parameters/tenantIdParam"
+        - $ref: "#/components/parameters/deletedParam"
+        - $ref: "#/components/parameters/orderFieldParam"
+        - $ref: "#/components/parameters/itemCountParam"
+        - name: channelId
+          in: query
+          description: Id of the channel to get
+          required: false
+          schema:
+            type: string
+        - name: productType
+          in: query
+          description: ""
+          required: false
+          schema:
+            type: array
+            enum: [KIT, PROBIOTIC, BUNDLE]
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PagingProductDTO"
   /organization/order:
     get:
       tags:
@@ -213,6 +348,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomErrorDto"
+  "/organization/order/{orderId}":
+    get:
+      tags:
+        - orders
+      summary: Find order by Id
+      description: Returns a single order
+      operationId: getOrderById
+      security:
+        - ApiKeyAuth: []
+      parameters:
+        - name: orderId
+          in: path
+          description: Id of order to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/OrderModel"
+        "400":
+          description: Something went wrong
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomErrorDto"
 components:
   securitySchemes:
     ApiKeyAuth:
@@ -289,6 +455,64 @@ components:
         type: integer
       description: Total items
   schemas:
+    PagingProductDTO:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: ""
+          readOnly: true
+        take:
+          type: integer
+          description: ""
+          readOnly: true
+        itemCount:
+          type: integer
+          description: ""
+          readOnly: true
+        pageCount:
+          type: integer
+          description: ""
+          readOnly: true
+        hasPreviousPage:
+          type: boolean
+          readOnly: true
+        hasNextPage:
+          type: boolean
+          readOnly: true
+        datas:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductDto"
+    PagingProjectDTO:
+      type: object
+      properties:
+        page:
+          type: integer
+          description: ""
+          readOnly: true
+        take:
+          type: integer
+          description: ""
+          readOnly: true
+        itemCount:
+          type: integer
+          description: ""
+          readOnly: true
+        pageCount:
+          type: integer
+          description: ""
+          readOnly: true
+        hasPreviousPage:
+          type: boolean
+          readOnly: true
+        hasNextPage:
+          type: boolean
+          readOnly: true
+        datas:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProjectDto"
     CustomErrorDto:
       type: object
       properties:
@@ -308,7 +532,7 @@ components:
         invoiceNo:
           type: string
         addressId:
-          type: string
+          type: integer
         projectId:
           type: string
         channelId:
