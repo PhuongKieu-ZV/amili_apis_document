@@ -20,8 +20,17 @@ info:
     **How to Find Your Token**
       1. Login Lilac dashboard [https://app.v3.dev.amili.asia/](https://app.v3.dev.amili.asia/)
       2. Go to API Key Management
+      
+      <img alt="" src="https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/Screen+Shot+2023-12-13+at+17.21.40.png" />
+
       3. Click Create if you haven't generated your API Key yet
+
+      <img alt="" src="https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/Screen+Shot+2023-12-13+at+17.25.05.png" />
+
       4. Copy API Key
+
+      <img alt="" src="https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/Screen+Shot+2023-12-13+at+17.27.17.png" />
+
   version: 1.0.0
   title: Swagger Lilac
   termsOfService: "http://swagger.io/terms/"
