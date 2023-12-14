@@ -3,7 +3,7 @@
     "customRoles": [
       {
         "name": "Operation Plus 1",
-        "scopes": [1, 2, 3, 4]
+        "scopes": [165, 166, 167]
       }
     ],
     "supportedLanguages": ["vi", "en", "cn"],
