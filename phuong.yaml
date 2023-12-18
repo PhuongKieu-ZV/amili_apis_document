@@ -1,0 +1,305 @@
+service: functions-metadata-v2
+frameworkVersion: "3"
+
+plugins:
+  - serverless-default-aws-resource-attributes
+  - serverless-plugin-resource-tagging
+  - serverless-deployment-bucket
+provider:
+  name: aws
+  runtime: nodejs14.x
+  lambdaHashingVersion: 20201221
+  stackTags:
+    Environment: "prod"
+    Owner: "zigvy"
+    Project: "bioandme-v20"
+  deploymentBucket:
+    name: amili-dev
+  # vpc:
+  #   securityGroupIds:
+  #     - ${self:custom.environment.SECURITYGROUP1.${self:custom.stage}}
+  #     - ${self:custom.environment.SECURITYGROUP2.${self:custom.stage}}
+  #   subnetIds:
+  #     - ${self:custom.environment.SUBNETID1.${self:custom.stage}}
+  #     - ${self:custom.environment.SUBNETID2.${self:custom.stage}}
+custom:
+  defaultAwsAttributes:
+    # Enable SSE and block public access for all S3 buckets
+    # Also set a DeletionPolicy for all S3 buckets
+    - Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
+      Properties:
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: true
+          BlockPublicPolicy: true
+          IgnorePublicAcls: true
+          RestrictPublicBuckets: true
+  stage: ${opt:stage, self:provider.stage}
+  environment:
+    AUTHORIZATION_KEY_META:
+      phuong: Basic YWRtaW46Y3FHS0FreDROVFpBWTNkVw==
+      dev: Basic YWRtaW46Y3FHS0FreDROVFpBWTNkVw==
+      prod: Basic YWRtaW46Y3FHS0FreDROVFpBWTNkVw==
+      staging: Basic YWRtaW46Y3FHS0FreDROVFpBWTNkVw==
+      stg: Basic YWRtaW46Y3FHS0FreDROVFpBWTNkVw==
+      stg2: Basic YWRtaW46Y3FHS0FreDROVFpBWTNkVw==
+    REGION:
+      phuong: ap-southeast-1
+      dev: ap-southeast-1
+      prod: ap-southeast-1
+      staging: ap-southeast-1
+      stg: ap-southeast-1
+      stg2: ap-southeast-1
+    SECRET_NAME:
+      phuong: arn:aws:secretsmanager:ap-southeast-1:705030229210:secret:amili-test-2-F4Lz7f
+      dev: arn:aws:secretsmanager:ap-southeast-1:705030229210:secret:amili-test-HAuWa9
+      prod: arn:aws:secretsmanager:ap-southeast-1:705030229210:secret:amili-test-HAuWa9
+      staging: arn:aws:secretsmanager:ap-southeast-1:705030229210:secret:amili-test-HAuWa9
+      stg: arn:aws:secretsmanager:ap-southeast-1:705030229210:secret:amili-test-HAuWa9
+      stg2: arn:aws:secretsmanager:ap-southeast-1:705030229210:secret:amili-test-HAuWa9
+    # SECURITYGROUP1:
+    #   phuong: ap-southeast-1
+    #   dev: ap-southeast-1
+    #   prod: ap-southeast-1
+    #   staging: ap-southeast-1
+    #   stg: ap-southeast-1
+    #   stg2: ap-southeast-1
+    # SECURITYGROUP2:
+    #   phuong: ap-southeast-1
+    #   dev: ap-southeast-1
+    #   prod: ap-southeast-1
+    #   staging: ap-southeast-1
+    #   stg: ap-southeast-1
+    #   stg2: ap-southeast-1
+    # SUBNETID1:
+    #   phuong: ap-southeast-1
+    #   dev: ap-southeast-1
+    #   prod: ap-southeast-1
+    #   staging: ap-southeast-1
+    #   stg: ap-southeast-1
+    #   stg2: ap-southeast-1
+    # SUBNETID2:
+    #   phuong: ap-southeast-1
+    #   dev: ap-southeast-1
+    #   prod: ap-southeast-1
+    #   staging: ap-southeast-1
+    #   stg: ap-southeast-1
+    #   stg2: ap-southeast-1
+resources:
+  Resources:
+    FunctionRoleMetadata7:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: RoleMetadata7 # required if you want to use 'serverless deploy --function' later on
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        ManagedPolicyArns:
+          - arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole
+        Policies:
+          - PolicyName: rotateKeysPolicy7
+            PolicyDocument:
+              Version: "2012-10-17"
+              Statement:
+                - Effect: Allow # note that these rights are given in the default policy and are required if you want logs out of your lambda(s)
+                  Action:
+                    - secretsmanager:DescribeSecret
+                    - secretsmanager:GetSecretValue
+                    - secretsmanager:PutSecretValue
+                    - secretsmanager:UpdateSecretVersionStage
+                  Resource: ${self:custom.environment.SECRET_NAME.${self:custom.stage}}
+                - Effect: Allow
+                  Action:
+                    - secretsmanager:GetRandomPassword
+                  Resource: "*"
+                - Effect: Allow
+                  Action:
+                    - ec2:CreateNetworkInterface
+                    - ec2:DeleteNetworkInterface
+                    - ec2:DescribeNetworkInterfaces
+                    - ec2:DetachNetworkInterface
+                  Resource: "*"
+functions:
+  authorizerAnyToken:
+    handler: built/authorisers.handler
+    # vpc: ~
+    environment:
+      AUTHORIZATION_KEY_META: ${self:custom.environment.AUTHORIZATION_KEY_META.${self:custom.stage}}
+      REGION: ${self:custom.environment.REGION.${self:custom.stage}}
+      SECRET_NAME: ${self:custom.environment.SECRET_NAME.${self:custom.stage}}
+  metadataFunc:
+    handler: built/handler.handler
+    role: FunctionRoleMetadata7
+    environment:
+      REGION: ${self:custom.environment.REGION.${self:custom.stage}}
+      SECRET_NAME: ${self:custom.environment.SECRET_NAME.${self:custom.stage}}
+      # SECURITYGROUP1: ${self:custom.environment.SECURITYGROUP1.${self:custom.stage}}
+      # SECURITYGROUP2: ${self:custom.environment.SECURITYGROUP2.${self:custom.stage}}
+      # SUBNETID1: ${self:custom.environment.SUBNETID1.${self:custom.stage}}
+      # SUBNETID2: ${self:custom.environment.SUBNETID2.${self:custom.stage}}
+    events:
+      - http:
+          path: global-keys
+          method: get
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+              - Access-Control-Allow-Credentials
+              - Z-Client-Timezone
+            allowCredentials: false
+          authorizer:
+            name: authorizerAnyToken
+            type: request
+            identitySource: method.request.header.Authorization
+      - http:
+          path: global-keys/{keyId}
+          method: get
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+              - Access-Control-Allow-Credentials
+              - Z-Client-Timezone
+            allowCredentials: false
+          authorizer:
+            name: authorizerAnyToken
+            type: request
+            identitySource: method.request.header.Authorization
+      - http:
+          path: global-keys
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+              - Access-Control-Allow-Credentials
+              - Z-Client-Timezone
+            allowCredentials: false
+          authorizer:
+            name: authorizerAnyToken
+            type: request
+            identitySource: method.request.header.Authorization
+      - http:
+          path: global-keys
+          method: PUT
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+              - Access-Control-Allow-Credentials
+              - Z-Client-Timezone
+            allowCredentials: false
+          authorizer:
+            name: authorizerAnyToken
+            type: request
+            identitySource: method.request.header.Authorization
+      - http:
+          path: global-keys
+          method: DELETE
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+              - Access-Control-Allow-Credentials
+              - Z-Client-Timezone
+            allowCredentials: false
+          authorizer:
+            name: authorizerAnyToken
+            type: request
+            identitySource: method.request.header.Authorization
+      - http:
+          path: global-keys/resource/{entity}
+          method: get
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+              - Access-Control-Allow-Credentials
+              - Z-Client-Timezone
+            allowCredentials: false
+          authorizer:
+            name: authorizerAnyToken
+            type: request
+            identitySource: method.request.header.Authorization
+      - http:
+          path: tags
+          method: POST
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+              - Access-Control-Allow-Credentials
+              - Z-Client-Timezone
+            allowCredentials: false
+          authorizer:
+            name: authorizerAnyToken
+            type: request
+            identitySource: method.request.header.Authorization
+      - http:
+          path: tags
+          method: get
+          cors:
+            origin: "*"
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - X-Amzn-Trace-Id
+              - Access-Control-Allow-Credentials
+              - Z-Client-Timezone
+            allowCredentials: false
+          authorizer:
+            name: authorizerAnyToken
+            type: request
+            identitySource: method.request.header.Authorization

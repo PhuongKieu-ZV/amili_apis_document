@@ -20,16 +20,16 @@ info:
     **How to Find Your Token**
       1. Login Lilac dashboard [https://app.v3.dev.amili.asia/](https://app.v3.dev.amili.asia/)
       2. Go to API Key Management
-      
-      <img alt="" src="https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/Screen+Shot+2023-12-13+at+17.21.40.png" />
+
+      ![step 2.](https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/Screen+Shot+2023-12-13+at+17.21.40.png)
 
       3. Click Create if you haven't generated your API Key yet
 
-      <img alt="" src="https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/Screen+Shot+2023-12-13+at+17.25.05.png" />
+      ![step 3.](https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/Screen+Shot+2023-12-13+at+17.25.05.png)
 
       4. Copy API Key
 
-      <img alt="" src="https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/Screen+Shot+2023-12-13+at+17.27.17.png" />
+      ![step 4.](https://amili-dev.s3.ap-southeast-1.amazonaws.com/products/Screen+Shot+2023-12-13+at+17.27.17.png)
 
   version: 1.0.0
   title: Swagger Lilac
@@ -153,7 +153,7 @@ x-tagGroups:
       - project_paging
       - product_paging
 paths:
-  /organization/channel:
+  /v1/organization/channel:
     get:
       tags:
         - Channels
@@ -188,7 +188,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/ChannelDto"
-  /organization/project:
+  /v1/organization/project:
     get:
       tags:
         - Projects
@@ -223,7 +223,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PagingProjectDTO"
-  /organization/product:
+  /v1/organization/product:
     get:
       tags:
         - Products
@@ -263,7 +263,7 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/PagingProductDTO"
-  /organization/order:
+  /v1/organization/order:
     get:
       tags:
         - Orders
@@ -351,7 +351,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CustomErrorDto"
-  "/organization/order/{orderId}":
+  "/v1/organization/order/{orderId}":
     get:
       tags:
         - Orders
